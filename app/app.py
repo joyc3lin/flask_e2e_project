@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from pandas import read_sql
 from sqlalchemy import create_engine, text
 from db_functions import update_or_create_user
+import logging
 
 load_dotenv()  
 
@@ -18,6 +19,13 @@ engine = create_engine(AZUREURL,
 GOOGLE_CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID')
 GOOGLE_CLIENT_SECRET = os.getenv('GOOGLE_CLIENT_SECRET')
 
+logging.basicConfig(
+    level=logging.DEBUG,
+    filename="/home/joyce_lin_1/flask_e2e_project/logs/app.log",
+    filemode="w",
+    format='%(levelname)s - %(name)s - %(message)s'
+)
+
 app = Flask(__name__)   
 
 app.secret_key = os.urandom(12)
@@ -25,96 +33,137 @@ oauth = OAuth(app)
 
 @app.route('/')
 def mainpage():
-    return render_template('index.html')
+    try:
+        logging.debug("success! Home page has been accessed")
+        return render_template('base.html')
+    except Exception as e:
+        logging.error(f"an error occured! {e}")
+        return "try again"    
+
 
 @app.route('/google/')
 def google():
-    CONF_URL = 'https://accounts.google.com/.well-known/openid-configuration'
-    oauth.register(
-        name='google',
-        client_id=GOOGLE_CLIENT_ID,
-        client_secret=GOOGLE_CLIENT_SECRET,
-        server_metadata_url=CONF_URL,
-        client_kwargs={
-            'scope': 'openid email profile'
-        }
-    )
-
-    # Redirect to google_auth function
-    ###note, if running locally on a non-google shell, do not need to override redirect_uri
-    ### and can just use url_for as below
-    redirect_uri = url_for('google_auth', _external=True)
-    print('REDIRECT URL: ', redirect_uri)
-    session['nonce'] = generate_token()
-    ##, note: if running in google shell, need to override redirect_uri 
-    ## to the external web address of the shell, e.g.,
-    redirect_uri = 'https://5000-cs-149051346400-default.cs-us-east1-vpcf.cloudshell.dev/google/auth/'
-    return oauth.google.authorize_redirect(redirect_uri, nonce=session['nonce'])
+    try:
+        logging.debug("success! Google page has been accessed")
+        CONF_URL = 'https://accounts.google.com/.well-known/openid-configuration'
+        oauth.register(
+            name='google',
+            client_id=GOOGLE_CLIENT_ID,
+            client_secret=GOOGLE_CLIENT_SECRET,
+            server_metadata_url=CONF_URL,
+            client_kwargs={
+                'scope': 'openid email profile'
+            }
+        )
+        redirect_uri = url_for('google_auth', _external=True)
+        print('REDIRECT URL: ', redirect_uri)
+        session['nonce'] = generate_token()
+        redirect_uri = 'https://5000-cs-149051346400-default.cs-us-east1-vpcf.cloudshell.dev/google/auth/'
+        return oauth.google.authorize_redirect(redirect_uri, nonce=session['nonce'])
+    except Exception as e:
+        logging.error(f"an error occured! {e}")
+        return "try again"  
 
 @app.route('/google/auth/')
 def google_auth():
-    token = oauth.google.authorize_access_token()
-    user = oauth.google.parse_id_token(token, nonce=session['nonce'])
-    session['user'] = user
-    update_or_create_user(user)
-    print(" Google User ", user)
-    return redirect('/dashboard')
+    try:
+        logging.debug("success! Google authorization page has been accessed")
+        token = oauth.google.authorize_access_token()
+        user = oauth.google.parse_id_token(token, nonce=session['nonce'])
+        session['user'] = user
+        update_or_create_user(user)
+        print(" Google User ", user)
+        return redirect('/dashboard')
+    except Exception as e:
+        logging.error(f"an error occured! {e}")
+        return "try again"    
+
 
 @app.route('/dashboard/')
 def dashboard():
-    user = session.get('user')
-    if user:
-        return render_template('dashboard.html', user=user)
-    else:
-        return redirect('/')
+    try:
+        logging.debug("success! Dashboard page has been accessed")
+        user = session.get('user')
+        if user:
+            return render_template('dashboard.html', user=user)
+        else:
+            return redirect('/')
+    except Exception as e:
+        logging.error(f"an error occured! {e}")
+        return "try again"    
+
 
 @app.route('/logout')
 def logout():
-    session.pop('user', None)
-    return redirect('/')
+    try:
+        logging.debug("successfully logged out.")
+        session.pop('user', None)
+        return redirect('/')
+    except Exception as e:
+        logging.error(f"an error occured! {e}")
+        return "try again"       
+
+
 
 @app.route('/patients')
 def patients():
+    try:
+        logging.debug("success! Patients page has been accessed")
     # Establish a database connection
-    with engine.connect() as connection:
+        with engine.connect() as connection:
         # Execute an SQL query to fetch data (replace this with your query)
-        query1 = text('SELECT * FROM patients')
+            query1 = text('SELECT * FROM patients')
 
-        result1 = connection.execute(query1)
+            result1 = connection.execute(query1)
 
         # Fetch all rows of data
-        patientdata = result1.fetchall()
+            patientdata = result1.fetchall()
 
-    return render_template('patients.html', data1=patientdata)
+        return render_template('patients.html', data1=patientdata)
+    except Exception as e:
+        logging.error(f"an error occured! {e}")
+        return "try again"     
+    
 
 
 @app.route('/preferences')
 def patientpreferences():
-    # Establish a database connection
-    with engine.connect() as connection:
+    try:
+        logging.debug("successfully logged out.")
+     # Establish a database connection
+        with engine.connect() as connection:
         # Execute an SQL query to fetch data (replace this with your query)
-        query2 = text('SELECT * FROM patient_preferences')
+            query2 = text('SELECT * FROM patient_preferences')
 
-        result2 = connection.execute(query2)
+            result2 = connection.execute(query2)
 
         # Fetch all rows of data
-        preferencedata = result2.fetchall()
+            preferencedata = result2.fetchall()
 
-    return render_template('preferences.html', data2=preferencedata)
+        return render_template('preferences.html', data2=preferencedata)
+    except Exception as e:
+        logging.error(f"an error occured! {e}")
+        return "try again"       
+
 
 @app.route('/demographics')
 def patientdemographics():
-    # Establish a database connection
-    with engine.connect() as connection:
+    try:
+        logging.debug("successfully logged out.")
+        # Establish a database connection
+        with engine.connect() as connection:
         # Execute an SQL query to fetch data (replace this with your query)
-        query3 = text('SELECT * FROM patient_demographics')
+            query3 = text('SELECT * FROM patient_demographics')
 
-        result3 = connection.execute(query3)
+            result3 = connection.execute(query3)
 
         # Fetch all rows of data
-        demographicdata = result3.fetchall()
+            demographicdata = result3.fetchall()
 
-    return render_template('demographics.html', data3=demographicdata)
+        return render_template('demographics.html', data3=demographicdata)
+    except Exception as e:
+        logging.error(f"an error occured! {e}")
+        return "try again"       
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)

@@ -1,11 +1,6 @@
-<!DOCTYPE html>
+{% extends "base.html" %} 
 
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Dashboard</title>
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles.css') }}">
-</head>
+        {% block content %}
 
 <body>
     <h1> Dashboard</h1>
@@ -21,8 +16,5 @@
             <div class="btn-text">
                 Logout
             </div>
-        </a>
-    </div>
-</body>
 
-</html>
+{% endblock %}
