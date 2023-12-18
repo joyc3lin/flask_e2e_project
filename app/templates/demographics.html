@@ -1,0 +1,38 @@
+{% extends "base.html" %} 
+
+        {% block content %}
+            <div class="table">
+                <h2 class="text-xl mb-2">Patient Demographics Table</h2>
+                <table class="table-auto">
+                    <thead>
+                        <tr>
+                            <th class="px-4 py-2">demographic ID</th>
+                            <th class="px-4 py-2">Patient ID</th>
+                            <th class="px-4 py-2">Gender</th>
+                            <th class="px-4 py-2">Language Spoken</th>
+                            <th class="px-4 py-2">Marital Status</th>
+                            <th class="px-4 py-2">Nationality</th>
+                            <th class="px-4 py-2">Occupation</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for patientdemographics in data3 %}
+                        <tr>
+                            <td class="border px-4 py-2">{{ patientdemographics.id }}</td>
+                            <td class="border px-4 py-2">{{ patientdemographics.patient_id }}</td>
+                            <td class="border px-4 py-2">{{ patientdemographics.gender }}</td>
+                            <td class="border px-4 py-2">{{ patientdemographics.language_spoken }}</td>
+                            <td class="border px-4 py-2">{{ patientdemographics.marital_status }}</td>
+                            <td class="border px-4 py-2">{{ patientdemographics.nationality }}</td>
+                            <td class="border px-4 py-2">{{ patientdemographics.occupation }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <br/>
+
+        {% endblock %}

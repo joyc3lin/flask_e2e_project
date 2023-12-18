@@ -60,7 +60,7 @@ def patientdemographics():
         # Fetch all rows of data
         demographicdata = result3.fetchall()
 
-    return render_template('demographics.html', data2=demographicdata)
+    return render_template('demographics.html', data3=demographicdata)
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Not a Real Healthcare Database</title>
+    
+    <!-- Tailwind CSS via CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-200">
+
+    <header class="bg-blue-600 text-white p-4">
+        <h1 class="text-2xl">Not a Real Healthcare Database</h1>
+        <nav>
+            <ul class="flex space-x-4">
+                <li><a href="/" class="hover:underline">Home</a></li>
+                <li><a href="/patients" class="hover:underline">Patients</a></li>
+                <li><a href="/preferences" class="hover:underline">Preferences</a></li>
+                <li><a href="/demographics" class="hover:underline">Demographics</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="p-4">
+
+        {% block content %}
+            <p> Welcome to the Database that is NOT a real healthcare database!</p>
+            </br>
+            <p>Come take a look at the data we have that is NOT real!</p>
+            </br>
+            <p>Enjoy your visit!</p>
+        {% endblock %}
+
+    </main>
+
+    <footer class="bg-blue-600 text-white p-4 mt-6">
+        <p>© 2023 Not a Real Healthcare Database. All Rights Not Reserved because this not a real website.</p>
+    </footer>
+</body>
+
+</html>

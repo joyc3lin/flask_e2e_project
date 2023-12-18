@@ -1,0 +1,36 @@
+{% extends "base.html" %} 
+
+        {% block content %}
+            <div class="table">
+                <h2 class="text-xl mb-2">Patient Preferences Table</h2>
+                <table class="table-auto">
+                    <thead>
+                        <tr>
+                            <th class="px-4 py-2">Preference ID</th>
+                            <th class="px-4 py-2">Patient ID</th>
+                            <th class="px-4 py-2">Favorite Food</th>
+                            <th class="px-4 py-2">Favorite Show</th>
+                            <th class="px-4 py-2">Hobby</th>
+                            <th class="px-4 py-2">Toothpaste Flavor</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for patientpreferences in data2 %}
+                        <tr>
+                            <td class="border px-4 py-2">{{ patientpreferences.id }}</td>
+                            <td class="border px-4 py-2">{{ patientpreferences.patient_id }}</td>
+                            <td class="border px-4 py-2">{{ patientpreferences.favorite_food }}</td>
+                            <td class="border px-4 py-2">{{ patientpreferences.favorite_shows }}</td>
+                            <td class="border px-4 py-2">{{ patientpreferences.hobbies }}</td>
+                            <td class="border px-4 py-2">{{ patientpreferences.toothpaste_flavor }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <br/>
+
+        {% endblock %}
