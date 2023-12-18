@@ -28,11 +28,10 @@ class Patient(Base):
     date_of_birth = Column(Date, nullable=False)
     contact_number = Column(String(100))
     email = Column(String(100))
-    address = Column(String(150))
+    address = Column(String(200))
 
     preferences = relationship('Preferences', back_populates='patient')
-    medications = relationship('medications', back_populates='patient2')
-    demographics = relationship('Demographics', back_populates='patient3')
+    demographics = relationship('Demographics', back_populates='patient2')
 
 class Preferences(Base):
     __tablename__ = 'patient_preferences'
@@ -42,20 +41,9 @@ class Preferences(Base):
     favorite_food = Column(String(200), nullable=False)
     favorite_shows = Column(String(200))
     hobbies = Column(String(200))
-    toothpaste_flavor = Column(String(100))
-
+    toothpaste_flavor = Column(String(100))  
+    
     patient = relationship('Patient', back_populates='preferences')
-
-class Medications(Base):
-    __tablename__ = 'patient_medications'
-
-    id = Column(Integer, primary_key=True)
-    patient_id = Column(Integer, ForeignKey('patients.id'), nullable=False)
-    medication_name = Column(String(150))
-    medication_type = Column(String(50))
-
-    patient2 = relationship('Patient', back_populates='medications')
-
 
 class Demographics(Base):
     __tablename__ = 'patient_demographics'
@@ -68,7 +56,7 @@ class Demographics(Base):
     nationality = Column(String(100))
     occupation = Column(String(100))
 
-    patient3 = relationship('Patient', back_populates='demographics')
+    patient2 = relationship('Patient', back_populates='demographics')
 
 ### Part 2 - initial sqlalchemy-engine to connect to db:
 

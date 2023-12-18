@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 from sqlalchemy import create_engine, func
 from sqlalchemy.orm import sessionmaker
 from faker import Faker
-from db import Patient, Preferences
+from db.db import Patient, Preferences, Demographics
 import random
 
 # Load environment variables
@@ -33,7 +33,11 @@ show = ['PhineasandFerb', 'Spongebob', 'Criminalminds', 'GoT', 'HarryPotter', 'M
 hobby = ['tennis', 'drawing', 'crochet', 'sleeping', 'cooking', 'baking', 'woodworking', 'baseball', 'eating', 'skating', 'handball']
 
 genders = ['Male', 'Female', 'Nonbinary', 'Other', 'N/A']
-    
+
+marital = ['Married', 'Single', 'Separated', 'Divorced', 'Widowed']
+
+flavor = ['mint', 'pickle', 'blueberry', 'chocolate', 'pine', 'orange', 'strawberry', 'wasabi', 'lemon', 'bacon', 'coffee', 'mint', 'mint', 'mint', 'fennel']
+
 # Functions to generate fake data
 def create_fake_patient():
     first_name = fake.first_name()
@@ -42,20 +46,30 @@ def create_fake_patient():
         first_name = first_name,
         last_name = last_name,
         date_of_birth = fake.date_of_birth(),
-        gender = random.choice(genders),
         contact_number = fake.phone_number(),
-        language_spoken = random.choice(sample_languages),
-        email = f"{first_name}.{last_name}@{fake.domain_name()}"
+        email = f"{first_name}.{last_name}@{fake.domain_name()}",
+        address = fake.address()
     )
 
 def create_fake_preferences():
     return Preferences(
+
     patient_id = session.query(Patient).order_by(func.rand()).first().id,
     favorite_food = random.choice(foods),
     favorite_shows = random.choice(show),
-    hobbies = random.choice(hobby)
+    hobbies = random.choice(hobby),
+    toothpaste_flavor = random.choice(flavor)
     )
 
+def create_fake_demographics():
+    return Demographics(
+    patient_id = session.query(Patient).order_by(func.rand()).first().id,
+    gender = random.choice(genders),
+    language_spoken = random.choice(sample_languages),
+    marital_status = random.choice(marital),
+    nationality = fake.country(),
+    occupation = fake.job()
+    )
 
 # Generate and insert fake data
 for _ in range(20):
@@ -66,6 +80,10 @@ for _ in range(20):
 for _ in range(20):
     fake_preferences = create_fake_preferences()
     session.add(fake_preferences)
+
+for _ in range(20):
+    fake_demographics = create_fake_demographics()
+    session.add(fake_demographics)
 
 #commit
 session.commit()
