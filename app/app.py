@@ -10,14 +10,14 @@ import logging
 
 load_dotenv()  
 
-AZUREURL = 'mysql+pymysql://joyce:Pineapple!1@joycefinal.mysql.database.azure.com/joyce'
+AZUREURL = os.getenv("AZURE")
 
 engine = create_engine(AZUREURL,
     connect_args={'ssl': {'ssl-mode':'preferred'}},
 )    
 
-GOOGLE_CLIENT_ID = '60644915922-f57nr7v0vh2ck6qkslaorskcuv035q98.apps.googleusercontent.com'
-GOOGLE_CLIENT_SECRET = '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'
+GOOGLE_CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID')
+GOOGLE_CLIENT_SECRET = os.getenv('GOOGLE_CLIENT_SECRET')
 
 logging.basicConfig(
     level=logging.DEBUG,
