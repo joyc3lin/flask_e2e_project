@@ -5,3 +5,4 @@ authlib
 faker
 requests
 pymysql
+pandas
