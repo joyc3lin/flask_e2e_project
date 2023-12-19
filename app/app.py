@@ -10,18 +10,18 @@ import logging
 
 load_dotenv()  
 
-AZUREURL = os.getenv("AZURE")
+AZUREURL = 'mysql+pymysql://joyce:Pineapple!1@joycefinal.mysql.database.azure.com/joyce'
 
 engine = create_engine(AZUREURL,
     connect_args={'ssl': {'ssl-mode':'preferred'}},
 )    
 
-GOOGLE_CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID')
-GOOGLE_CLIENT_SECRET = os.getenv('GOOGLE_CLIENT_SECRET')
+GOOGLE_CLIENT_ID = '60644915922-f57nr7v0vh2ck6qkslaorskcuv035q98.apps.googleusercontent.com'
+GOOGLE_CLIENT_SECRET = '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'
 
 logging.basicConfig(
     level=logging.DEBUG,
-    filename="/home/joyce_lin_1/flask_e2e_project/logs/app.log",
+    filename="logs/app.log",
     filemode="w",
     format='%(levelname)s - %(name)s - %(message)s'
 )
@@ -243,4 +243,4 @@ def patientdemographics():
         return "try again"       
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(debug=False, port=8080, host='0.0.0.0')
