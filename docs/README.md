@@ -26,6 +26,7 @@ The web service created is an flask app with three pages containing patient data
   + It can be accessed through this link: https://joycefinal504.azurewebsites.net/
     + Note: while the app works and the different pages can be accessed, the app runs into an error when you try to log in through Google
 
++ Screenshots of the App can be found in the [docs](https://github.com/joyc3lin/flask_e2e_project/tree/main/docs) folder!
   </br>
 
 # .ENV Template 
