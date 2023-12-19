@@ -5,4 +5,6 @@ Final Assignment (Product / Web Service)
 + create flask app get it working locally 
 + Oauth
 + logger
-+
++ api
++ docker
++ azure deployment
