@@ -6,14 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Not a Real Healthcare Database</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="/static/styles.css" rel="stylesheet">
 </head>
 
-<body class="bg-gray-200">
+<body class="bg-white">
 
-    <header class="bg-blue-600 text-white p-4">
-        <h1 class="text-2xl">Not a Real Healthcare Database</h1>
+    <header class="bg-yellow-400 text-white p-4">
+        <h1 class="text-2xl font-bold text-center">Not a Real Healthcare Database</h1>
         <nav>
-            <ul class="flex space-x-4">
+            <ul class="flex space-x-4 font-bold">
                 <li><a href="/" class="hover:underline">Home</a></li>
                 <li><a href="/patients" class="hover:underline">Patients</a></li>
                 <li><a href="/preferences" class="hover:underline">Preferences</a></li>
@@ -26,29 +27,33 @@
     <main class="p-4">
 
         {% block content %}
+        
         <body>
             <div>
-                <a href="google/" class="login-btn" style="text-decoration:none;">
-                    <img id="google" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/2048px-Google_%22G%22_Logo.svg.png"
-                alt="Google"
-                style="width:50px;height:50px;">
+                <a href="google/" class="login-btn border-solid">
+
+                    <img id="google" src="/static/5847f9cbcef1014c0b5e48c8.jpg"
+                    width="50" height="50" alt="Google">
+
                 <div class="btn-text">
                     Login with Google
                 </div>
                 </a> 
-            </div>
+            </div>            
         </body>
 
-            <p> Welcome to the Database that is NOT a real healthcare database!</p>
             </br>
-            <p>Come take a look at the data we have that is NOT real!</p>
+            <p class="text-center"> Welcome to the Database that is NOT a real healthcare database!</p>
             </br>
-            <p>Enjoy your visit!</p>
+            <p class="text-center">Come take a look at the data we have that is NOT real!</p>
+            </br>
+            <p class="text-center">Enjoy your visit!</p>
+            
         {% endblock %}
 
     </main>
 
-    <footer class="bg-blue-600 text-white p-4 mt-6">
+    <footer class="bg-yellow-400 text-white p-4 mt-6">
         <p>© 2023 Not a Real Healthcare Database. All Rights Not Reserved because this not a real website.</p>
     </footer>
 </body>

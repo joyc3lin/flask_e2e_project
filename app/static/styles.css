@@ -1,4 +1,5 @@
 .login-btn {
+    margin: auto;
     justify-content: center;
     flex-direction: row;
     display: flex;
@@ -10,9 +11,22 @@
     box-shadow: 3px 3px 3px rgb(170, 170, 170);
     border-radius: 15px;
 }
+
 .btn-text {
     justify-content: center;
     padding: 10px;
     font-family: 'Poppins', sans-serif;
     color: rgb(85, 85, 85);
+}
+
+.logout-btn {
+    background: #eab308;
+    box-shadow: 3px 3px 3px rgb(170, 170, 170);
+    border-radius: 5px;
+}
+
+.logout-btn-text {
+    color: white;    
+    justify-content: center;
+    padding: 10px;
 }
