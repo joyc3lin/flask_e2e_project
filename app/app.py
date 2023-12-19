@@ -109,12 +109,39 @@ def logout():
 def patients():
     try:
         logging.debug("success! Patients page has been accessed")
+        id = request.args.get('id')
+        first_name = request.args.get('first_name')
+        last_name = request.args.get('last_name')
+        date_of_birth = request.args.get('date_of_birth')
+        contact_number = request.args.get('contact_number')
+        email = request.args.get('email')
+        address = request.args.get('address')
     # Establish a database connection
         with engine.connect() as connection:
-        # Execute an SQL query to fetch data (replace this with your query)
-            query1 = text('SELECT * FROM patients')
-
-            result1 = connection.execute(query1)
+            if first_name:
+                query1 = text('SELECT * FROM patients WHERE first_name = :first_name')
+                result1 = connection.execute(query1, {"first_name": first_name})
+            elif last_name:
+                query1 = text('SELECT * FROM patients WHERE last_name = :last_name')
+                result1 = connection.execute(query1, {"last_name": last_name})
+            elif id:
+                query1 = text('SELECT * FROM patients WHERE id = :id')
+                result1 = connection.execute(query1, {"id": id})
+            elif date_of_birth:
+                query1 = text('SELECT * FROM patients WHERE date_of_birth = :date_of_birth')
+                result1 = connection.execute(query1, {"date_of_birth": date_of_birth})
+            elif contact_number:
+                query1 = text('SELECT * FROM patients WHERE contact_number = :contact_number')
+                result1 = connection.execute(query1, {"contact_number": contact_number})
+            elif email:
+                query1 = text('SELECT * FROM patients WHERE email = :email')
+                result1 = connection.execute(query1, {"email": email})
+            elif address:
+                query1 = text('SELECT * FROM patients WHERE address = :address')
+                result1 = connection.execute(query1, {"address": address})
+            else:
+                query1 = text('SELECT * FROM patients')
+                result1 = connection.execute(query1)   
 
         # Fetch all rows of data
             patientdata = result1.fetchall()
@@ -129,13 +156,36 @@ def patients():
 @app.route('/preferences')
 def patientpreferences():
     try:
-        logging.debug("successfully logged out.")
+        logging.debug("success! Preferences page has been accessed")
+        id = request.args.get('id')
+        patient_id = request.args.get('patient_id')
+        favorite_food = request.args.get('favorite_food')
+        favorite_shows = request.args.get('favorite_shows')
+        hobbies = request.args.get('hobbies')
+        toothpaste_flavor = request.args.get('toothpaste_flavor') 
      # Establish a database connection
         with engine.connect() as connection:
-        # Execute an SQL query to fetch data (replace this with your query)
-            query2 = text('SELECT * FROM patient_preferences')
-
-            result2 = connection.execute(query2)
+            if id:
+                query2 = text('SELECT * FROM patient_preferences WHERE id = :id')
+                result2 = connection.execute(query2, {"id": id})
+            elif patient_id:
+                query2 = text('SELECT * FROM patient_preferences WHERE patient_id = :patient_id')
+                result2 = connection.execute(query2, {"patient_id": patient_id})
+            elif favorite_food:
+                query2 = text('SELECT * FROM patient_preferences WHERE favorite_food = :favorite_food')
+                result2 = connection.execute(query2, {"favorite_food": favorite_food})
+            elif favorite_shows:
+                query2 = text('SELECT * FROM patient_preferences WHERE favorite_shows = :favorite_shows')
+                result2 = connection.execute(query2, {"favorite_shows": favorite_shows})
+            elif hobbies:
+                query2 = text('SELECT * FROM patient_preferences WHERE hobbies = :hobbies')
+                result2 = connection.execute(query2, {"hobbies": hobbies})
+            elif toothpaste_flavor:
+                query2 = text('SELECT * FROM patient_preferences WHERE toothpaste_flavor = :toothpaste_flavor')
+                result2 = connection.execute(query2, {"toothpaste_flavor": toothpaste_flavor})
+            else:
+                query2 = text('SELECT * FROM patient_preferences')
+                result2 = connection.execute(query2)   
 
         # Fetch all rows of data
             preferencedata = result2.fetchall()
@@ -149,13 +199,40 @@ def patientpreferences():
 @app.route('/demographics')
 def patientdemographics():
     try:
-        logging.debug("successfully logged out.")
+        logging.debug("success! Demographics page has been accessed")
+        id = request.args.get('id')
+        patient_id = request.args.get('patient_id')
+        gender = request.args.get('gender')
+        language_spoken = request.args.get('language_spoken')
+        marital_status = request.args.get('marital_status')
+        nationality = request.args.get('nationality')
+        occupation = request.args.get('occupation')
         # Establish a database connection
         with engine.connect() as connection:
-        # Execute an SQL query to fetch data (replace this with your query)
-            query3 = text('SELECT * FROM patient_demographics')
-
-            result3 = connection.execute(query3)
+            if id:
+                query3 = text('SELECT * FROM patient_demographics WHERE id = :id')
+                result3 = connection.execute(query3, {"id": id})
+            elif patient_id:
+                query3 = text('SELECT * FROM patient_demographics WHERE patient_id = :patient_id')
+                result3 = connection.execute(query3, {"patient_id": patient_id})
+            elif gender:
+                query3 = text('SELECT * FROM patient_demographics WHERE gender = :gender')
+                result3 = connection.execute(query3, {"gender": gender})
+            elif language_spoken:
+                query3 = text('SELECT * FROM patient_demographics WHERE language_spoken = :language_spoken')
+                result3 = connection.execute(query3, {"language_spoken": language_spoken})
+            elif marital_status:
+                query3 = text('SELECT * FROM patient_demographics WHERE marital_status = :marital_status')
+                result3 = connection.execute(query3, {"marital_status": marital_status})
+            elif nationality:
+                query3 = text('SELECT * FROM patient_demographics WHERE nationality = :nationality')
+                result3 = connection.execute(query3, {"nationality": nationality})
+            elif occupation:
+                query3 = text('SELECT * FROM patient_demographics WHERE occupation = :occupation')
+                result3 = connection.execute(query3, {"occupation": occupation})
+            else:
+                query3 = text('SELECT * FROM patient_demographics')
+                result3 = connection.execute(query3)   
 
         # Fetch all rows of data
             demographicdata = result3.fetchall()

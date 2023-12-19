@@ -2,4 +2,7 @@
 Final Assignment (Product / Web Service)
 
 + create app and data tables in SQLalchemy 
-+ create flask app 
++ create flask app get it working locally 
++ Oauth
++ logger
++
